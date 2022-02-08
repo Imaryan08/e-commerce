@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .nav{
+            display: flex;
+            background-color: rgb(28,41,56);
+            color: white;
+            justify-content: space-between;
+            height: 50px;
+            padding: 25px 0 0 20px;
+            /* border-radius: 7px; */
+            font-family:  monospace;
+            font-size: 20px;
+            position: sticky;
+            top: 0;
+        }
+        .left{
+            width: 70%;
+            font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-weight: 700;
+            font-size: 22px;
+
+            
+        }
+        .right{
+            display: flex;
+            justify-content: space-evenly;
+            width: 30%;
+        }
+        a{
+            text-decoration: none;
+            color: #fff;
+        }
+        a:hover{
+            color: aqua;
+        }
+
+        /* Product box */
+        #box{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            place-content: center;
+        }
+        .card{
+            margin: auto;
+            border : 5px solid #1c2938;
+            border-radius: 5px;
+            width: 80%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color: #1c2938;
+            color : white;
+            overflow: hidden;
+        }
+        .card img{
+            width: 100%;
+        }
+        .card h3{
+            font-size: 16px;
+            padding: 5px 10px;
+            text-align: center;
+            font-family:  sans-serif;
+            /* min-height: 38px; */
+            /* vertical-align: bottom; */
+            /* position: absolute; */
+            /* bottom: 0; */
+        }
+        .priceDiv{
+            display: flex;
+            justify-content: space-around;
+            margin: 5px 15px;    
+        }
+        .priceDiv p:nth-child(1){
+            font-size: 18px;
+        }
+        .priceDiv p:last-child{
+            text-decoration: line-through 2px;
+            color: gray;
+        }
+        /* Add to cart */
+        .addToCart{
+            text-align: center;
+            padding: 10px 15px;
+            font-size: 20px;
+            font-weight: 800;
+            font-family: monospace;
+            background-color: #0f253f;
+      }
+        .addToCart:hover{
+            color: gray;
+            cursor: pointer;
+        }
+        .cartSize{
+        color: red;
+      }
+
+        /* Filter */
+      .filter {
+        /* height: 40px; */
+        /* border: 1px solid red; */
+        text-align: right;
+        padding: 10px 50px 0 0;
+        font-family:  Geneva;
+      }
+      .sort{
+        font-size: 18px;
+        font-weight: 800;
+        padding: 0 10px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      }
+      select{
+        padding: 2px;
+        font-size: 16px;
+      }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="nav">
+        <div class="left">
+            <a href="eCommerce.html">Amazon</a>
+        </div>
+        <div class="right">
+            <div class='men'>
+                <a href="men.html">
+                    Men
+                </a> 
+            </div>
+            <div class='women'>
+                <a href="women.html">
+                    Women
+                </a> 
+            </div>
+            <div class="carts">
+                <a href="cartpage.html"  class='cartItem'> Cart<span class='cartSize'></span> </a>
+              </div>
+            <div class='signup'>
+                <a href="signup.html">
+                    Signup
+                </a> 
+            </div>
+            <div class='login'>
+                <a href="login.html">
+                    Login
+                </a> 
+            </div>  
+        </div>
+    </div>
+
+     <!-- Filter  -->
+     <div class="filter">
+        <label for="sort" class='sort'>Sort By</label>
+        <select name="sort" id="sort"  onchange="handleSort()">
+          <option>Sort by price</option>
+          <option value="high">High to Low</option>
+          <option value="low">Low to High</option>
+        </select>
+      </div>
+
+    <!-- Product -->
+    <div id="box">
+    </div>
+</body>
+</html>
+
+<script>
+var womensData = JSON.parse(localStorage.getItem('womensData')) || [];
+var cartPage = JSON.parse(localStorage.getItem('cartPage')) || [];
+displayData(womensData);
+
+// Calling CartLength
+cartLength();
+
+    function handleSort(){
+        var selected = document.querySelector('#sort').value;
+
+        if(selected == 'low'){
+            womensData.sort(function(a,b){
+                return Number(a.price) - Number(b.price);
+            });
+        }
+
+        if(selected == 'high'){
+            womensData.sort(function(a,b){
+                return Number(b.price) - Number(a.price);
+            });
+        }
+        // console.log(mensData);
+        displayData(womensData);
+    }
+
+    function displayData(womensData){
+        document.querySelector('#box').innerHTML = '';
+
+    womensData.map(function(data){
+        var div = document.createElement('div');
+        div.setAttribute('class','card');
+
+        var image = document.createElement('img');
+        image.setAttribute('src',data.image_url);
+
+        var productName = document.createElement('h3');
+        productName.textContent = data.name; 
+
+        var priceDiv = document.createElement('div');
+        priceDiv.setAttribute('class','priceDiv');
+        
+        var disPrice = document.createElement('p');
+        disPrice.textContent = 'Rs. ' +  data.price;
+        
+        var price = document.createElement('p');
+        price.textContent = 'Rs. ' + data.strikedoffprice;
+
+        //add to cart button creation
+        var addToCart = document.createElement('div');
+        addToCart.setAttribute('class','addToCart');
+        addToCart.innerText = 'Add To Cart';
+        
+        //appending to parent
+        priceDiv.append(disPrice, price);
+        div.append(image, productName, priceDiv, addToCart);
+        document.querySelector('#box').append(div);
+
+        // Add to cart event Listener
+        addToCart.addEventListener('click',function(){
+            if(!cartPage.includes(data)){
+                cartPage.push(data);
+                localStorage.setItem('cartPage',JSON.stringify(cartPage));
+                alert('Added To Cart')
+                cartLength();
+            }
+        });
+    });
+}
+
+function cartLength(){
+        var cartItem = document.querySelector('.cartSize');
+        var Len = JSON.parse(localStorage.getItem('cartPage'))||[];
+        if(Len.length > 0){
+            cartItem.innerText = '(' + Len.length + ')';
+        }
+    }
+</script>

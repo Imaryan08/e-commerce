@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family:   monospace;
+        }
+
+        /* Navbar */
+        .nav{
+            display: flex;
+            background-color: rgb(28,41,56);
+            color: white;
+            justify-content: space-between;
+            height: 50px;
+            padding: 25px 0 0 20px;
+            /* border-radius: 7px; */
+            font-family:  monospace;
+            font-size: 20px;
+            position: sticky;
+            top: 0;
+        }
+        .left{
+            width: 70%;
+            font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-weight: 700;
+            font-size: 22px;
+
+            
+        }
+        .right{
+            display: flex;
+            justify-content: space-evenly;
+            width: 30%;
+        }
+        a{
+            text-decoration: none;
+            color: #fff;
+        }
+        a:hover{
+            color: aqua;
+        }
+
+
+
+
+        /* Signup */
+        #container{
+            border: 1px solid gray;
+            height: 520px;
+            width: 30%;
+            margin: auto;
+            margin-top: 20px;
+            text-align: center;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        #container > h1{
+            background-color: #1c2938;
+            color: white;
+            padding: 15px;
+        }
+        form > p{
+            font-size: 20px;
+            padding: 10px 0px 10px 72px;
+            text-align: left;
+        }
+        input{
+            padding: 8px 15px;
+            font-size: 20px;
+        }
+        button{
+            margin: 30px;
+            padding: 10px 30px;
+            font-size: 30px;
+            font-weight: 600;
+            background-color: #1c2938;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+            font-family:  sans-serif;
+        }
+        button:hover{
+            color: black;
+        }
+        .cartSize{
+        color: red;
+      }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="nav">
+        <div class="left">
+            <a href="eCommerce.html">Amazon</a>
+        </div>
+        <div class="right">
+            <div class='men'>
+                <a href="men.html">
+                    Men
+                </a> 
+            </div>
+            <div class='women'>
+                <a href="women.html">
+                    Women
+                </a> 
+            </div>
+            <div class="carts">
+                <a href="cartpage.html"  class='cartItem'> Cart<span class='cartSize'></span> </a>
+              </div>
+            <div class='signup'>
+                <a href="signup.html">
+                    Signup
+                </a> 
+            </div>
+            <div class='login'>
+                <a href="login.html">
+                    Login
+                </a> 
+            </div>
+            
+            
+        </div>
+    </div>
+
+
+    <!-- SIGNUP Page -->
+    <div id="container">
+        <h1>SIGNUP FORM</h1>
+        <form action="">
+            <p>Name</p>
+            <input type="text" name="name" id="name" required>
+            <p>email</p>
+            <input type="email" name="email" id="email" required>
+            <p>Password</p>
+            <input type="password" name="pass" id="pass" required>
+            <p>Confirm Password</p>
+            <input type="password" name="conPass" id="conPass" required>
+            <button type="submit" id='submitBtn'>SIGNUP</button>
+        </form>
+    </div>
+</body>
+</html>
+
+<script>
+    cartLength();
+
+    var stdInfo = [];
+    document.querySelector('#submitBtn').addEventListener('click',function(){
+        event.preventDefault();
+        stdInfo = JSON.parse(localStorage.getItem('stdInfo')) || [];
+        var name = document.querySelector('#name').value;
+        var email = document.querySelector('#email').value;
+        var pass = document.querySelector('#pass').value;
+        var conPass = document.querySelector('#conPass').value;
+
+        if(name.length && email.length && pass.length && conPass.length){
+            if(pass === conPass){
+                var obj = {name: name, email: email, pass: pass, conPass: conPass};
+                stdInfo.push(obj);
+                // console.log(name,email,pass,conPass)
+                
+                localStorage.setItem('stdInfo',JSON.stringify(stdInfo));
+                alert('Account Created Succesfully');
+                window.location.href = 'login.html';
+            }else{
+                var border = document.querySelector('#conPass');
+                border.style.border = '2px solid red';
+                console.log(border)
+            }
+        }else{
+            alert('Please Fill all the fields');
+        }
+
+    });
+
+    function cartLength(){
+        var cartItem = document.querySelector('.cartSize');
+        var Len = JSON.parse(localStorage.getItem('cartPage'))||[];
+        if(Len.length > 0){
+            cartItem.innerText = '(' + Len.length + ')';
+        }
+    }
+</script>   

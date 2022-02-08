@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family:   monospace;
+        }
+        /* Navbar */
+        .nav{
+            display: flex;
+            background-color: #1c2938;
+            color: white;
+            justify-content: space-between;
+            height: 50px;
+            padding: 25px 0 0 20px;
+            /* border-radius: 7px; */
+            font-family:  monospace;
+            font-size: 20px;
+            position: sticky;
+            top: 0;
+        }
+        .left{
+            width: 70%;
+            font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-weight: 700;
+            font-size: 22px;
+
+            
+        }
+        .right{
+            display: flex;
+            justify-content: space-evenly;
+            width: 30%;
+        }
+        a{
+            text-decoration: none;
+            color: #fff;
+        }
+        a:hover{
+            color: aqua;
+        }
+        /* Login page */
+        #box{
+            width: 30%;
+            margin: auto;
+            height: 480px;
+            margin-top: 30px;
+            border: 1px solid gray;
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        #box h1{
+            background-color: #1c2938;
+            color: #fff;
+            padding: 20px;
+            width: 100%;
+        }
+        .email{
+            margin: 80px 0px 40px 0px;
+        }
+        input{
+            padding: 10px 15px;
+            font-size: 20px;
+        }
+        button{
+            margin: 50px;
+            padding: 10px 30px;
+            font-size: 30px;
+            font-weight: 600;
+            background-color: #1c2938;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+            font-family:  sans-serif;
+        }
+        button:hover{
+            color: black;
+        }
+        .cartSize{
+        color: red;
+      }
+    </style>
+</head>
+<body>
+    <!-- NAvbar -->
+    <div class="nav">
+        <div class="left">
+            <a href="eCommerce.html">Amazon</a>
+        </div>
+        <div class="right">
+            <div class='men'>
+                <a href="men.html">
+                    Men
+                </a> 
+            </div>
+            <div class='women'>
+                <a href="women.html">
+                    Women
+                </a> 
+            </div>
+            <div class="carts">
+                <a href="cartpage.html"  class='cartItem'> Cart<span class='cartSize'></span>  </a>
+              </div>
+            <div class='signup'>
+                <a href="signup.html">
+                    Signup
+                </a> 
+            </div>
+            <div class='login'>
+                <a href="login.html">
+                    Login
+                </a> 
+            </div>   
+        </div>
+    </div>
+    <!-- login page -->
+    <div id="box">
+        <form action="">
+            <h1>Login Page</h1>
+            <div class="email">
+                <input type="email" placeholder="Enter your email" id='email'>
+            </div>
+
+            <div class="pass">
+                <input type="password" name="" id="pass" placeholder="Enter your password">
+            </div>
+            <button type='submit' id='loginBtn'>LOGIN</button>
+
+        </form>
+    </div>
+</body>
+</html>
+
+<script>
+    cartLength();
+
+    document.querySelector('#loginBtn').addEventListener('click',function(){
+        event.preventDefault();
+        var data = JSON.parse(localStorage.getItem('stdInfo')) || [];
+        console.log(data.length, data)
+        var email = document.querySelector('#email').value;
+        var pass = document.querySelector('#pass').value;
+
+        if(email.length && pass.length){
+            // console.log(email,pass);
+            if(data.length){
+                
+                var check = true;
+                var checkEmail = true;
+
+                data.map(function(elem){
+                    if(email === elem.email && pass === elem.pass){
+                        check = true;
+                        checkEmail = true;
+                        window.location.href = 'men.html';
+                    }
+                    else if(email !== elem.email){
+                        checkEmail = false;
+                    }
+                    else{
+                        check = false;
+                    }
+                    
+                });
+                if(check === false){
+                    alert('Wrong Credentials');
+                }
+                else if(checkEmail === false){
+                    alert('Your email does not exist here');
+                        window.location.href = 'signup.html';
+                }
+
+            }else{
+                    alert('Your account does not exist');
+                    window.location.href = 'login.html';
+                }
+
+        }else{
+            alert('Please Fill all the fields');
+        }
+
+
+    });
+
+    function cartLength(){
+        var cartItem = document.querySelector('.cartSize');
+        var Len = JSON.parse(localStorage.getItem('cartPage'))||[];
+        if(Len.length > 0){
+            cartItem.innerText = '(' + Len.length + ')';
+        }
+    }
+</script>

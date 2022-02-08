@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      /* Navbar style */
+      .nav {
+        display: flex;
+        background-color: rgb(28, 41, 56);
+        color: white;
+        justify-content: space-between;
+        height: 50px;
+        padding: 25px 0 0 20px;
+        font-family: monospace;
+        font-size: 20px;
+        position: sticky;
+        top: 0;
+      }
+      .left {
+        width: 70%;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        font-weight: 700;
+        font-size: 22px;
+      }
+      .right {
+        display: flex;
+        justify-content: space-evenly;
+        width: 30%;
+      }
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
+      a:hover {
+        color: aqua;
+      }
+
+      /* Product box */
+      .container {
+        display: flex;
+        padding: 25px;
+      }
+      .rightBox {
+        position: fixed;
+        right: 40px;
+        width: 30%;
+        height: 510px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background-image: linear-gradient(
+          to right,
+          rgba(28, 41, 56, 0.2),
+          rgba(28, 41, 56, 0.4)
+        );
+      }
+      .rightBox > h2 {
+        text-align: center;
+        color: rgb(141, 133, 133);
+        background-color: lightgrey;
+        padding: 15px;
+        font-size: 30px;
+        /* border-bottom: 1px solid gray; */
+      }
+      .boxParent {
+        width: 65%;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background-image: linear-gradient(
+          to right,
+          rgba(28, 41, 56, 0.2),
+          rgba(28, 41, 56, 0.4)
+        );
+      }
+      .box {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        place-content: center;
+      }
+      .boxParent > h2 {
+        text-align: center;
+        color: rgb(141, 133, 133);
+        background-color: lightgrey;
+        padding: 15px;
+        font-size: 30px;
+        text-transform: uppercase;
+        /* border-bottom: 1px solid gray; */
+      }
+      .card {
+        margin: auto;
+        border: 5px solid #1c2938;
+        border-radius: 5px;
+        width: 80%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background-color: #1c2938;
+        color: white;
+        overflow: hidden;
+      }
+      .card img {
+        width: 100%;
+      }
+      .card h3 {
+        font-size: 16px;
+        padding: 5px 10px;
+        text-align: center;
+        font-family: sans-serif;
+      }
+      .priceDiv {
+        display: flex;
+        justify-content: space-around;
+        margin: 10px 15px;
+      }
+      .priceDiv p:nth-child(1) {
+        font-size: 18px;
+      }
+      .priceDiv p:last-child {
+        text-decoration: line-through 2px;
+        color: gray;
+      }
+
+      /* Total price */
+      .totalPrice {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 30px;
+        font-size: 20px;
+        font-family: monospace;
+        font-weight: 900;
+      }
+      .placeBtn {
+        background-color: green;
+        color: white;
+        font-size: 20px;
+        width: 80%;
+        border: none;
+        padding: 18px 30px;
+        margin: auto;
+        border-radius: 5px;
+        font-weight: 800;
+      }
+      .placeBtn:hover{
+        cursor: pointer;
+        background-color: rgb(1, 77, 1);
+      }
+      .del{
+          background-color: rgb(173, 18, 18);
+          padding: 5px;
+          text-transform: uppercase;
+          font-family: monospace;
+          font-size: 25px;
+          font-weight: bold;
+          text-align: center;
+          letter-spacing: 2px;
+      }
+      .del:hover{
+          color: black;
+          cursor: pointer;
+          letter-spacing: 8px;
+      }
+
+      /* Coupon */
+      .couponText{
+          font-family: monospace;
+      }
+      .couponInput{
+        box-shadow: rgba(60, 64, 67, 0.8) 0px 1px 2px 0px, rgba(60, 64, 67, 0.7) 0px 2px 6px 2px;
+        padding: 0px 10px;   
+        width: 140px;
+        border: none;
+        font-size: 16px;
+      }
+      .couponInput:focus{
+        box-shadow: rgba(0, 73, 129, 0.8) 0px 1px 2px 0px, rgba(0, 84, 148, 0.7) 0px 2px 6px 2px;
+        outline: none;
+        border: none;
+      }
+      button{
+          background-color: #1c2938;
+          border: none;
+          padding: 0px 15px;
+          color : white;
+          font-family: monospace;
+          font-size: 16px;
+          text-transform: uppercase;
+          font-weight: bolder;
+          letter-spacing: 1px;
+      }
+      button:hover{
+        cursor: pointer;
+        color: gray;
+      }
+      .cartSize{
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAvbar -->
+    <div class="nav">
+      <div class="left">
+        <a href="eCommerce.html">Amazon</a>
+      </div>
+      <div class="right">
+        <div class="men">
+          <a href="men.html"> Men </a>
+        </div>
+        <div class="women">
+          <a href="women.html"> Women </a>
+        </div>
+        <div class="carts">
+          <a href="cartpage.html" class='cartItem'> Cart<span class='cartSize'></span> </a>
+        </div>
+        <div class="signup">
+          <a href="signup.html"> Signup </a>
+        </div>
+        <div class="login">
+          <a href="login.html"> Login </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart page -->
+    <div class="container">
+      <!-- Left Box for added product -->
+      <div class="boxParent">
+        <h2>My Cart</h2>
+        <div class="box">
+
+        </div>
+      </div>
+      <!-- Right Box for Billing -->
+      <div class="rightBox">
+        <h2>PRICE DETAILS</h2>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  var cartPage = JSON.parse(localStorage.getItem("cartPage")) || [];
+  
+
+  if(cartPage.length){
+  var total = 0;
+  var actualPrice = 0;
+  // Calling CartLength
+  cartLength();
+
+  cartPage.map(function (data,index) {
+    var div = document.createElement("div");
+    div.setAttribute("class", "card");
+
+    var del = document.createElement('div');
+    del.setAttribute('class','del');
+    del.innerText = 'delete';
+
+    var image = document.createElement("img");
+    image.setAttribute("src", data.image_url);
+
+    var productName = document.createElement("h3");
+    productName.textContent = data.name;
+
+    var priceDiv = document.createElement("div");
+    priceDiv.setAttribute("class", "priceDiv");
+    var disPrice = document.createElement("p");
+    disPrice.textContent = "Rs. " + data.price;
+    var price = document.createElement("p");
+    price.textContent = "Rs. " + data.strikedoffprice;
+
+    //delete from cart button
+    del.addEventListener('click',function(){
+      cartPage.splice(index, 1);
+      localStorage.setItem('cartPage',JSON.stringify(cartPage));
+      window.location.reload();
+    });
+    
+
+    //appending element to parent element
+    priceDiv.append(disPrice, price);
+    div.append(del,image, productName, priceDiv);
+    document.querySelector(".box").append(div);
+
+    total += data.strikedoffprice;
+    actualPrice += data.price;
+  });
+
+  //Product price
+  var totalPrice = document.createElement("div");
+  totalPrice.setAttribute("class", "totalPrice");
+
+  //Total price 
+  var priceText = document.createElement("p");
+  priceText.innerText = "Total Price";
+  var price = document.createElement("p");
+  price.innerText = "₹" + total;
+
+  totalPrice.append(priceText, price);
+
+  var actualprice = document.createElement("div");
+  actualprice.setAttribute("class", "totalPrice");
+  var payable = document.createElement("p");
+  payable.innerText = "Payable Amount";
+  var payableAmt = document.createElement("p");
+  payableAmt.innerText = "₹" + (actualPrice+80);
+  localStorage.setItem('totalAmount',(actualPrice+80));
+
+
+  actualprice.append(payable, payableAmt);
+
+  var dis = document.createElement("div");
+  dis.setAttribute("class", "totalPrice");
+  var disPrice = document.createElement("p"); 
+  disPrice.innerText = "Discount";
+  var disAmt = document.createElement("p");
+  disAmt.style.color = "green";
+  if(total > 0){
+    disAmt.innerText = "-₹" + (total - actualPrice);
+  }else{
+    disAmt.innerText = "₹" + (total - actualPrice);
+  }
+
+  dis.append(disPrice, disAmt);
+ 
+  var del = document.createElement("div");
+  del.setAttribute("class", "totalPrice");
+  var delText = document.createElement("p");
+  delText.innerText = "Delivery";
+  var delAmt = document.createElement("p");
+  var x;
+  if(total > 0){
+      x = 80;
+  }else{
+    x = 0;
+  }
+  delAmt.innerText = "₹"+x;
+
+  del.append(delText, delAmt);
+
+  var saveText = document.createElement("div");
+  saveText.setAttribute("class", "totalPrice");
+  saveText.style.color = "green";
+  var lastAmount = total - actualPrice - x;
+  saveText.innerText =
+    "You will save ₹" + (lastAmount) + " on this order";
+
+
+  // Coupon input
+  var coupon = document.createElement("div");
+  coupon.setAttribute("class", "totalPrice");
+
+  var couponText = document.createElement("span");
+  couponText.innerText = "Have Coupon?";
+  couponText.setAttribute('class','couponText');
+
+  var couponInput = document.createElement("input");
+  couponInput.placeholder = 'COUPON CODE'
+  couponInput.setAttribute('class','couponInput');
+  var applyBtn = document.createElement('button');
+  applyBtn.innerText = 'Apply';
+
+  coupon.append(couponText,couponInput,applyBtn)
+
+  //EVENT LISTENER ON COUPON APPLY BUTTON
+  applyBtn.addEventListener('click',function(){
+    var couponCode = document.querySelector('.couponInput').value;
+
+    if(couponCode === 'masai30'){
+      alert('COUPON APPLIED');
+      var couponDis = actualPrice * 0.30;
+      lastAmount = actualPrice-couponDis;
+      localStorage.setItem('totalAmount',(lastAmount+80));
+      
+      payableAmt.innerText = "₹" + ( (lastAmount+80).toFixed(2) );
+      saveText.innerText = "You will save ₹" + ( (total-(lastAmount+80)).toFixed(2) )+ " on this order";  
+    }else  if(couponCode.length === 0){
+      alert('Add Coupon Code');
+    }
+    else{
+      alert('COUPON CODE NOT VALID');
+    }
+  });
+
+
+  // PLace Order Button
+  var plaecDiv = document.createElement("div");
+  plaecDiv.setAttribute("class", "totalPrice");
+  var placeBtn = document.createElement("button");
+  placeBtn.setAttribute("class", "placeBtn");
+  placeBtn.innerText = "PLACE ORDER";
+  plaecDiv.append(placeBtn);
+
+  // event listener onplace order
+  placeBtn.addEventListener('click',function(){
+    window.location.href = 'payment.html';
+    // localStorage.setItem('totalAmount',lastAmount);
+
+  });
+
+  document.querySelector(".rightBox").append(totalPrice, dis, del, actualprice, coupon, saveText, plaecDiv);
+}else{
+  document.querySelector('.container').innerHTML = '';
+ 
+  var emptyCartDiv = document.createElement('div');
+  var cartEmpty = document.createElement('img');
+  cartEmpty.setAttribute('src','http://www.shitalexports.com/img/empty-cart.jpg');
+  cartEmpty.style.width = '50%';
+  cartEmpty.style.marginTop = '-80px';
+  emptyCartDiv.style.textAlign = 'center';
+  
+  emptyCartDiv.append(cartEmpty);
+  document.querySelector('body').append(emptyCartDiv);
+
+}
+
+function cartLength(){
+        var cartItem = document.querySelector('.cartSize');
+        var Len = JSON.parse(localStorage.getItem('cartPage'))||[];
+        cartItem.innerText = '('+Len.length+')';
+    }
+</script>

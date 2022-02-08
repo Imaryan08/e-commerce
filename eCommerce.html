@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .nav{
+            display: flex;
+            background-color: rgb(28,41,56);
+            color: white;
+            justify-content: space-between;
+            height: 50px;
+            padding: 25px 0 0 20px;
+            /* border-radius: 7px; */
+            font-family:  monospace;
+            font-size: 20px;
+            position: sticky;
+            top: 0;
+        }
+        .left{
+            width: 70%;
+            font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-weight: 700;
+            font-size: 22px;
+
+            
+        }
+        .right{
+            display: flex;
+            justify-content: space-evenly;
+            width: 30%;
+        }
+        a{
+            text-decoration: none;
+            color: #fff;
+        }
+        a:hover{
+            color: aqua;
+        }
+        .image{
+            width: 100%;
+            height: 85vh;
+        }
+        .image img{
+            width: 100%;
+            height: 89vh;
+            object-fit: fill;
+            opacity: 0.9;
+
+        }
+        .cartSize{
+        color: red;
+      }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="left">
+            <a href="eCommerce.html">Amazon</a>
+        </div>
+        <div class="right">
+            <div class='men'>
+                <a href="men.html">
+                    Men
+                </a> 
+            </div>
+            <div class='women'>
+                <a href="women.html">
+                    Women
+                </a> 
+            </div>
+            <div class="carts">
+                <a href="cartpage.html"  class='cartItem'> Cart<span class='cartSize'></span> </a>
+              </div>
+            <div class='signup'>
+                <a href="signup.html">
+                    Signup
+                </a> 
+            </div>
+            <div class='login'>
+                <a href="login.html">
+                    Login
+                </a> 
+            </div> 
+        </div>
+    </div>
+    <div class='image'>
+        <img src="https://images.unsplash.com/photo-1572584642822-6f8de0243c93?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fHNhbGUlMjBvbiUyMGNsb3RofGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="">
+    </div>
+</body>
+</html>
+
+<script>
+    // document.querySelector('.signUp').addEventListener('click',function(){
+    //     window.location.href = 'signup.html';
+    // });
+    cartLength();
+    function cartLength(){
+        var cartItem = document.querySelector('.cartSize');
+        var Len = JSON.parse(localStorage.getItem('cartPage'))||[];
+        if(Len.length > 0){
+            cartItem.innerText = '(' + Len.length + ')';
+        }
+    }
+</script>
